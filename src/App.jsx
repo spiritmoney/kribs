@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
-import { Home } from "./pages/Home"
+import Home from "./pages/Home"
 import {  } from "./components/PrivateRoute";
 import { Profile } from "./pages/Profile"
 import { SignIn } from "./pages/SignIn"
@@ -11,6 +11,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PrivateRoute from "./components/PrivateRoute"
 import { List } from "./pages/List"
+import { EditListing } from "./pages/EditListing";
+import Listing  from "./pages/Listing";
 
 
 const App = () => {
@@ -27,9 +29,15 @@ const App = () => {
         <Route path="/sign-in" element={<SignIn />}></Route>
         <Route path="/sign-up" element={<SignUp />}></Route>
         <Route path="/forgot-password" element={<ForgotPassword />}></Route>
+        <Route path="/category/:categoryName/:listingId" element={<Listing />}></Route>
+        <Route path="/deals/category/:categoryName/:listingId" element={<Listing />}></Route>
+        <Route path="/profile/category/:categoryName/:listingId" element={<Listing />}></Route>
         <Route path="/deals" element={<Deals />}></Route>
         <Route path="/list" element={<PrivateRoute />}>
           <Route path="/list" element={<List />}></Route>
+        </Route>
+        <Route path="/edit-listing" element={<PrivateRoute />}>
+          <Route path="/edit-listing/:listingId" element={<EditListing />}></Route>
         </Route>
       </Routes>
     </Router>

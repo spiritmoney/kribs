@@ -12,7 +12,8 @@ export const SignIn = () => {
     password: ""
   })
   const [showPassword, setShowPassword] = useState(false)
-  const { email, password} = formData
+  const { email, password } = formData
+
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,

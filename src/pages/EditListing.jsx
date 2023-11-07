@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Spinner from "../components/Spinner";
 import { toast } from "react-toastify";
 import {
@@ -9,16 +9,17 @@ import {
 } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 import { v4 as uuidv4 } from "uuid";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { db } from "../firebase.config";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import React from 'react'
 
-export const List = () => {
+export const EditListing = () => {
 
   const navigate = useNavigate();
   const auth = getAuth();
   const [loading, setLoading] = useState(false);
+  const [listing, setListing] = useState(null);
   const [formData, setFormData] = useState({
     type: "rent",
     name: "",
@@ -31,7 +32,6 @@ export const List = () => {
     offer: false,
     regularPrice: 0,
     discountedPrice: 0,
-    number: 0,
     images: {},
   });
   const {
@@ -46,9 +46,36 @@ export const List = () => {
     offer,
     regularPrice,
     discountedPrice,
-    number,
     images,
   } = formData;
+
+  const params = useParams()
+
+  useEffect(() => {
+    if (listing && listing.userRef !== auth.currentUser.uid) {
+      toast.error("You cannot edit this Listing")
+      navigate("/")
+    }
+
+  }, [auth.currentUser.uid, listing, navigate])
+
+  useEffect(() => {
+    setLoading(true)
+    async function fetchListing() {
+      const docRef = doc(db, "listings", params.listingId)
+      const docSnap = await getDoc(docRef)
+      if(docSnap.exists()) {
+        setListing(docSnap.data())
+        setFormData({...docSnap.data()})
+        setLoading(false)
+      } else {
+        navigate("/")
+        toast.error("Listing doesnot exist")
+      }
+    }
+    fetchListing()
+  }, [])
+
   function onChange(e) {
     let boolean = null;
     if (e.target.value === "true") {
@@ -140,9 +167,10 @@ export const List = () => {
     };
     delete formDataCopy.images;
     !formDataCopy.offer && delete formDataCopy.discountedPrice;
-    const docRef = await addDoc(collection(db, "listings"), formDataCopy);
+    const docRef = doc(db, "listings", params.listingId)
+    await updateDoc(docRef, formDataCopy);
     setLoading(false);
-    toast.success("Listing created");
+    toast.success("Successfully Edited Listing");
     navigate(`/category/${formDataCopy.type}/${docRef.id}`);
   }
 
@@ -151,7 +179,7 @@ export const List = () => {
   }
   return (
     <main className="max-w-md px-5 mx-auto font-poppins">
-      <h1 className="text-3xl text-center mt-6 font-bold">Create a Listing</h1>
+      <h1 className="text-3xl text-center mt-6 font-bold">Edit Listing</h1>
       <form onSubmit={onSubmit}>
         <p className="text-lg mt-6 font-semibold">Sell/Rent</p>
         <div className="flex">
@@ -176,7 +204,7 @@ export const List = () => {
             className={`ml-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
               type === "sale"
                 ? "bg-white text-black"
-                : "bg-orange-400 hover:bg-orange-500 text-white"
+                : "bg-orange-500 hover:bg-orange-600 text-white"
             }`}
           >
             rent
@@ -241,7 +269,7 @@ export const List = () => {
             value={false}
             onClick={onChange}
             className={`ml-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-              parking ? "bg-white text-black" : "bg-orange-400 hover:bg-orange-500 text-white"
+              parking ? "bg-white text-black" : "bg-orange-500 hover:bg-orange-600 text-white"
             }`}
           >
             no
@@ -255,7 +283,7 @@ export const List = () => {
             value={true}
             onClick={onChange}
             className={`mr-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-              !furnished ? "bg-white text-black" : "bg-orange-400 hover:bg-orange-500 text-white"
+              !furnished ? "bg-white text-black" : "bg-orange-500 hover:bg-orange-600 text-white"
             }`}
           >
             yes
@@ -266,7 +294,7 @@ export const List = () => {
             value={false}
             onClick={onChange}
             className={`ml-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-              furnished ? "bg-white text-black" : "bg-orange-400 hover:bg-orange-500 text-white"
+              furnished ? "bg-white text-black" : "bg-orange-500 hover:bg-orange-600 text-white"
             }`}
           >
             no
@@ -300,7 +328,7 @@ export const List = () => {
             value={true}
             onClick={onChange}
             className={`mr-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-              !offer ? "bg-white text-black" : "bg-orange-400 hover:bg-orange-500 text-white"
+              !offer ? "bg-white text-black" : "bg-orange-500 hover:bg-orange-600 text-white"
             }`}
           >
             yes
@@ -311,7 +339,7 @@ export const List = () => {
             value={false}
             onClick={onChange}
             className={`ml-3 px-7 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-              offer ? "bg-white text-black" : "bg-orange-400 hover:bg-orange-500 text-white"
+              offer ? "bg-white text-black" : "bg-orange-500 hover:bg-orange-600 text-white"
             }`}
           >
             no
@@ -327,7 +355,7 @@ export const List = () => {
                 value={regularPrice}
                 onChange={onChange}
                 min="50"
-                max="4000000000"
+                max="400000000"
                 required
                 className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 text-center"
               />
@@ -349,8 +377,8 @@ export const List = () => {
                   id="discountedPrice"
                   value={discountedPrice}
                   onChange={onChange}
-                  min="50000"
-                  max="4000000000"
+                  min="50"
+                  max="400000000"
                   required={offer}
                   className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 text-center"
                 />
@@ -365,20 +393,6 @@ export const List = () => {
             </div>
           </div>
         )}
-        <div>
-          <p>Prefered Contact</p>
-          <input
-          type="tel"
-          id="number"
-          value={number}
-          onChange={onChange}
-          placeholder="Phone Number"
-          maxLength="10"
-          minLength="10"
-          required
-          className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-6"
-        />
-        </div>
         <div className="mb-6">
           <p className="text-lg font-semibold">Images</p>
           <p className="text-gray-600">
@@ -396,9 +410,9 @@ export const List = () => {
         </div>
         <button
           type="submit"
-          className="mb-6 w-full px-7 py-3 bg-orange-400 hover:bg-orange-500 text-white font-medium text-sm uppercase rounded-md shadow-md  hover:shadow-lg focus:bg-orange-600 focus:shadow-lg active:bg-orange-700 active:shadow-lg transition duration-150 ease-in-out"
+          className="mb-6 w-full px-7 py-3 bg-orange-500 hover:bg-orange-600 text-white font-medium text-sm uppercase rounded-md shadow-md  hover:shadow-lg focus:bg-orange-600 focus:shadow-lg active:bg-orange-700 active:shadow-lg transition duration-150 ease-in-out"
         >
-          Create Listing
+          Update Listing
         </button>
       </form>
     </main>

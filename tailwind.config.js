@@ -9,7 +9,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        poppins: ['"Poppins"', ...defaultTheme.fontFamily.sans]
+        poppins: ['"Poppins"', ...defaultTheme.fontFamily.sans],
       }
     },
   },
