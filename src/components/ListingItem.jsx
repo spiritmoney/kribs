@@ -1,7 +1,8 @@
 import React from 'react'
 import Moment from 'react-moment'
 import { Link } from 'react-router-dom'
-import { MdLocationOn } from "react-icons/md";
+import { MdLocationOn, MdOutlineKingBed, MdOutlineBathtub, MdDelete } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
 
 
 const ListingItem = ({listing, id, onDelete, onEdit}) => {
@@ -28,21 +29,21 @@ const ListingItem = ({listing, id, onDelete, onEdit}) => {
                   </p>
                   <div className=' flex items-center space-x-2 mt-2'>
                     <div className=' flex items-center space-x-1'>
-                        <img src="src\assets\svg\bed.svg" alt=" bed" />
+                        <MdOutlineKingBed className='text-xl sm:text-2xl' />
                         <p className='font-semibold text-xs'>{listing.bedrooms > 1 ? `${listing.bedrooms} Beds` : "1 Bed"}</p>
                     </div>
                     <div className='flex items-center space-x-1'>
-                        <img className=' h-6' src="src\assets\svg\bathtub.svg" alt="bath" />
+                        <MdOutlineBathtub className='text-xl sm:text-2xl' />
                         <p className='font-semibold text-xs'>{listing.bathrooms > 1 ? `${listing.bathrooms} Baths` : "1 Bath"}</p>
                     </div>
                   </div>
             </div>
         </Link>
         {onEdit && (
-            <img src="src\assets\svg\edit.svg" alt="edit" className='absolute bottom-2 right-10 cursor-pointer ' onClick={() => onEdit(listing.id)} />
+            <FaEdit className='absolute bottom-2 right-7 cursor-pointer text-green-500 text-lg' onClick={() => onEdit(listing.id)} />
         )}
         {onDelete && (
-            <img src="src\assets\svg\deletee.svg" alt="delete" className='absolute bottom-2 right-2 cursor-pointer' onClick={() => onDelete(listing.id)} />
+            <MdDelete className='absolute bottom-2 right-2 cursor-pointer text-red-500 text-lg' onClick={() => onDelete(listing.id)} />
         )}
     </li>
   )
