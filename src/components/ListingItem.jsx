@@ -40,10 +40,10 @@ const ListingItem = ({listing, id, onDelete, onEdit}) => {
             </div>
         </Link>
         {onEdit && (
-            <FaEdit className='absolute bottom-2 right-7 cursor-pointer text-green-500 text-lg' onClick={() => onEdit(listing.id)} />
+            <FaEdit className='absolute bottom-2 right-7 cursor-pointer text-green-500 text-2xl mr-1' onClick={() => onEdit(listing.id)} />
         )}
         {onDelete && (
-            <MdDelete className='absolute bottom-2 right-2 cursor-pointer text-red-500 text-lg' onClick={() => onDelete(listing.id)} />
+            <MdDelete className='absolute bottom-2 right-2 cursor-pointer text-red-500 text-2xl' onClick={() => onDelete(listing.id)} />
         )}
     </li>
   )

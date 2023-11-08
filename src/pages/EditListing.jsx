@@ -32,6 +32,7 @@ export const EditListing = () => {
     offer: false,
     regularPrice: 0,
     discountedPrice: 0,
+    number: +234,
     images: {},
   });
   const {
@@ -46,6 +47,7 @@ export const EditListing = () => {
     offer,
     regularPrice,
     discountedPrice,
+    number,
     images,
   } = formData;
 
@@ -393,6 +395,20 @@ export const EditListing = () => {
             </div>
           </div>
         )}
+        <div>
+          <p>Prefered Contact</p>
+          <input
+          type="tel"
+          id="number"
+          value={number}
+          onChange={onChange}
+          placeholder="Phone Number"
+          maxLength="15"
+          minLength="10"
+          required
+          className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-6"
+        />
+        </div>
         <div className="mb-6">
           <p className="text-lg font-semibold">Images</p>
           <p className="text-gray-600">
