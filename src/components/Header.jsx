@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 export const Header = () => {
 
+    //const [menuOpen, setMenuOpen] = useState(false)
     const [pageState, setPageState] = useState("SignIn")
 
     const location = useLocation()
@@ -53,6 +54,7 @@ export const Header = () => {
                     </li>
                 </ul>
             </div>
+            {}
         </header>
     </div>
   )
