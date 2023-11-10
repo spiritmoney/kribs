@@ -37,7 +37,7 @@ const Deals = () => {
   return (
     <div className='max-w-6xl mx-auto px-3 font-poppins'>
       <h1 className='text-3xl text-center mt-6 font-bold mb-3'>
-        Deals
+        Listings
       </h1>
       {loading ? (
         <Spinner />

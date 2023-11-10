@@ -75,7 +75,7 @@ const Listing = () => {
         </p>
       )}
 
-      <div className='flex flex-col md:flex-row max-w-6xl lg:mx-auto m-4 p-4 rounded-lg border-3 shadow-lg bg-white lg:space-x-5'>
+      <div className='flex flex-col md:flex-row max-w-6xl sm:mx-auto m-6 p-2 sm:p-4 rounded-lg border-3 shadow-lg bg-white lg:space-x-5'>
         <div className='w-full lg-[400px]'>
           <p className='text-2xl font-bold text-blue-900'>
             {listing.name} - N {listing.offer ? 
@@ -94,7 +94,7 @@ const Listing = () => {
               {listing.type === "rent" ? "Rent" : "Sale"}
             </p>
             {listing.offer && (
-              <p className='w-full max-w-[200px] bg-green-600 rounded-md p-1 text-white text-center font-semibold shadow-md '>
+              <p className='w-full max-w-[200px] bg-orange-500 rounded-md sm:p-1 text-white font-semibold shadow-md text-sm sm:text-base text-center flex justify-center items-center '>
                 N {+listing.regularPrice - +listing.discountedPrice} discount
               </p>
             )}
@@ -106,19 +106,19 @@ const Listing = () => {
           <ul className='flex items-center space-x-2 sm:space-x-10 text-xs font-semibold sm:text-sm'>
             <li className='flex items-center whitespace-nowrap'>
               <MdOutlineKingBed className='text-xl sm:text-2xl mr-2' />
-              {listing.bedrooms > 1 ? `${listing.bedrooms} Beds` : "1 Bed"}
+              <span className='sm:text-lg'>{listing.bedrooms > 1 ? `${listing.bedrooms} Beds` : "1 Bed"}</span>
             </li>
             <li className='flex items-center whitespace-nowrap'>
               <MdOutlineBathtub className='text-xl sm:text-2xl mr-2' />
-              {listing.bathrooms > 1 ? `${listing.bathrooms} Baths` : "1 Bath"}
+              <span className='sm:text-lg'>{listing.bathrooms > 1 ? `${listing.bathrooms} Baths` : "1 Bath"}</span>
             </li>
             <li className='flex items-center sm:whitespace-nowrap'>
               <FaParking className='text-xl sm:text-2xl mr-2' />
-              {listing.parking ? "Parking" : "No Parking"}
+              <span className='text-xs sm:text-lg'>{listing.parking ? "Parking" : "No Parking"}</span>
             </li>
             <li className='flex items-center sm:whitespace-nowrap'>
               <MdChair className='text-xl sm:text-2xl mr-2' />
-              {listing.parking ? "Furnished" : "Not Furnished"}
+              <span className='text-xs sm:text-lg'>{listing.parking ? "Furnished" : "Not Furnished"}</span>
             </li>
           </ul>
           {listing.userRef !== auth.currentUser?.uid && !contactLandlord && (

@@ -32,7 +32,7 @@ export const EditListing = () => {
     offer: false,
     regularPrice: 0,
     discountedPrice: 0,
-    number: +234,
+    number: `+234`,
     images: {},
   });
   const {

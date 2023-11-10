@@ -37,8 +37,8 @@ export const Header = () => {
             </div>
             <div>
                 <ul className='flex space-x-5'>
-                    <li className={`py-2 cursor-pointer text-sm sm:text-lg hover:text-orange-400 ${pathMatchRoute("/deals") && "text-orange-400"}`} onClick={() => navigate("/deals")}>Deals</li>
-                    <li>
+                    <li className={`py-1 cursor-pointer text-xs sm:text-lg hover:text-orange-400 ${pathMatchRoute("/deals") && "text-orange-400"}`} onClick={() => navigate("/deals")}>Listings</li>
+                    {/*<li>
                         <button 
                         type='submit'
                         className={`text-orange-400 bg-white px-4 py-1 text-sm sm:text-lg border border-orange-400 rounded-md hover:bg-orange-400 active:bg-orange-400 hover:text-white hover:border-white ${pathMatchRoute("/list") && " bg-orange-400 border-orange-400 text-orange-400"} `} onClick={() => navigate("/list")}>
@@ -46,9 +46,9 @@ export const Header = () => {
                                 List a Property
                             </Link>
                         </button>
-                    </li>
+                    </li>*/}
                     <li>
-                        <button className={`-ml-3 px-5 py-1 text-sm sm:text-lg bg-orange-400 text-white rounded-3xl hover:text-orange-400 active:bg-orange-400 active:text-white hover:bg-white hover:border-orange-400 focus:bg-orange-400 focus:text-white ${(pathMatchRoute("/sign-in") || pathMatchRoute("/profile")) && "bg-orange-400 text-white"}`} onClick={() => navigate("/profile")}>
+                        <button className={`-ml-3 px-5 py-1 text-xs sm:text-lg bg-orange-400 text-white rounded-3xl hover:text-orange-400 active:bg-orange-400 active:text-white hover:bg-white hover:border-orange-400 focus:bg-orange-400 focus:text-white ${(pathMatchRoute("/sign-in") || pathMatchRoute("/profile")) && "bg-orange-400 text-white"}`} onClick={() => navigate("/profile")}>
                             {pageState}
                         </button>
                     </li>

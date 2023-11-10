@@ -31,7 +31,7 @@ export const List = () => {
     offer: false,
     regularPrice: 0,
     discountedPrice: 0,
-    number: +234,
+    number: `+234`,
     images: {},
   });
   const {
@@ -150,10 +150,11 @@ export const List = () => {
     return <Spinner />;
   }
   return (
-    <main className="max-w-md px-5 mx-auto font-poppins">
-      <h1 className="text-3xl text-center mt-6 font-bold">Create a Listing</h1>
+    <main className="max-w-md px-10 mx-auto font-poppins">
+      <h1 className="sm:text-3xl text-lg text-center mt-6 font-bold">Create a Listing</h1>
+      <div className="shadow-lg p-3 rounded-lg">
       <form onSubmit={onSubmit}>
-        <p className="text-lg mt-6 font-semibold">Sell/Rent</p>
+        <p className="text-sm sm:text-lg mt-6 font-semibold">Sell/Rent</p>
         <div className="flex">
           <button
             type="button"
@@ -326,8 +327,8 @@ export const List = () => {
                 id="regularPrice"
                 value={regularPrice}
                 onChange={onChange}
-                min="50"
-                max="4000000000"
+                min="50000"
+                max="40000000000"
                 required
                 className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 text-center"
               />
@@ -349,7 +350,7 @@ export const List = () => {
                   id="discountedPrice"
                   value={discountedPrice}
                   onChange={onChange}
-                  min="50000"
+                  min="5000"
                   max="4000000000"
                   required={offer}
                   className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 text-center"
@@ -401,6 +402,7 @@ export const List = () => {
           Create Listing
         </button>
       </form>
+      </div>
     </main>
   );
 }

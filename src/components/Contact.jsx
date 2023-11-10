@@ -43,22 +43,12 @@ const Contact = ({userRef, listing}) => {
               <p className='font-semibold text-orange-400'>
                 Contact {landlord.name} for the {listing.name.toLowerCase()}
               </p>
-              <div className="mt-3 mb-6">
-                <textarea
-                  name="message"
-                  id="message"
-                  rows="2"
-                  value={message}
-                  onChange={onChange}
-                  placeholder='Message'
-                  className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600"
-                ></textarea>
-              </div>
               <a
-                href={`mailto:${landlord.email}?Subject=${listing.name}&body=${message}`}
+                className='mt-3'
+                href={`https://api.whatsapp.com/send?phone=${+listing.number}`}
               >
-                <button className="px-7 py-3 bg-blue-600 text-white rounded text-sm uppercase shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full text-center mb-1" type="button">
-                  Send Message
+                <button className="px-7 py-3 bg-green-600 text-white rounded text-sm uppercase shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out w-full text-center mb-1" type="button">
+                  Whatsapp
                 </button>
               </a>
               <div className='flex items-center my-2 before:border-t before:flex-1 before:border-gray-300 after:border-t after:flex-1 after:border-gray-300 '>
